@@ -1,13 +1,17 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from ..dependencies.database import get_repository
+from ...db.repositories.predictions import PredictionsRepository
+from ...models.predictions import PredictionsList
+
 
 router = APIRouter()
 
 
-@router.get("/")
-async def get_predictions() -> List[dict]:
-    predictions = [
-        {"game_id": 1, "player_id": 1, "team_id": 1, "prediction": 30},
-        {"game_id": 2, "player_id": 2, "team_id": 2, "prediction": 20},
-    ]
+@router.get("/latest", response_model=PredictionsList, name="predictions:get-predictions")
+async def get_latest_predictions(
+    predictions_repo: PredictionsRepository = Depends(get_repository(PredictionsRepository)),
+) -> PredictionsList:
+    predictions = await predictions_repo.get_predictions()
     return predictions
