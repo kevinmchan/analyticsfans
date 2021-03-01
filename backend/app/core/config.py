@@ -22,5 +22,5 @@ DATABASE_URL = config(
     default=(
         f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
         f"@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
-    )
+    ),
 )
