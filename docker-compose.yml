@@ -2,10 +2,9 @@ version: '3.7'
 
 services:
   frontend:
-    container_name: nginx
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - 9090:80
   backend:
